@@ -8,7 +8,9 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext .tsx,.ts",
     "lint:fix": "eslint src --ext .tsx,.ts --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.0.3",
@@ -31,6 +33,7 @@
     "tailwind-scrollbar": "^3.0.4",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vitest": "^0.33.0"
   }
 }
