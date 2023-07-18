@@ -7,12 +7,16 @@ import { Module } from '../components/Module'
 
 import { useAppDispatch, useAppSelector } from '../store'
 import { loadCourse, useCurrentLesson } from '../store/slices/player'
+import { ModuleSkeleton } from '../components/ModuleSkeleton'
 
 export function Player() {
   const dispatch = useAppDispatch()
 
-  const modules = useAppSelector((state) => {
-    return state.player.course?.modules
+  const { modules, isCourseLoading } = useAppSelector((state) => {
+    const modules = state.player.course?.modules
+    const isCourseLoading = state.player.isLoading
+
+    return { modules, isCourseLoading }
   })
 
   const { currentLesson } = useCurrentLesson()
@@ -45,7 +49,9 @@ export function Player() {
           </div>
 
           <aside className="absolute bottom-0 right-0 top-0 w-80 divide-y-2 divide-zinc-900 overflow-y-auto border-l border-zinc-800 bg-zinc-900 scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-            {modules &&
+            {isCourseLoading || !modules ? (
+              <ModuleSkeleton />
+            ) : (
               modules.map((module, moduleIndex) => {
                 return (
                   <Module
@@ -55,7 +61,8 @@ export function Player() {
                     amountOfLessons={module.lessons.length}
                   />
                 )
-              })}
+              })
+            )}
           </aside>
         </main>
       </div>
